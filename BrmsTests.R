@@ -24,7 +24,8 @@ print("Stage 1 Host abundance with ar1, by parasitoid * host, ")
 BrmS1HAbun <- brm((Habundance)~  firstP * HostID * Gen + (1|cage) + ar(p = 1) ,
                   data = TMBs1, family = poisson())
 
-
+saveRDS(BrmS1HAbun, file = "Model/BrmS1HAbun.rds")
+BrmS1HAbun<- readRDS(file = "Model/BrmS1HAbun.rds")
 
 sumBrmS1HAbun_tbl <-
   posterior_summary(BrmS1HAbun) %>%
@@ -40,17 +41,15 @@ sumBrmS1HAbun_tbl
 
 plot(BrmS1HAbun)
 
-
-SumS1HAbun <- summary(GlmS1HAbun0)
-SumS1HAbun
-
-AnovaS1HAbun <- Anova(Glm\S1HAbun0)
-AnovaS1HAbun
-
 print("Stage 1 Parasitoid abundance with ar1, by parasitoid * host")
 
 BrmS1PAbunAR1 <- (brm((Pabundance)~  (firstP * Gen*Habundance)  + ar(p=1) + (1|HostID) ,
                       data = TMBs1, family = poisson))
+
+saveRDS(BrmS1PAbunAR1, file = "Model/BrmS1PAbunAR1.rds")
+BrmS1PAbunAR1<- readRDS(file = "Model/BrmS1PAbunAR1.rds")
+
+
 sumBrmS1PAbun_tbl <-
   posterior_summary(BrmS1PAbunAR1) %>%
   as.data.frame() %>%
