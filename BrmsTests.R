@@ -22,16 +22,18 @@ GenIDf <- c(rep(1:17, each = 160))
 Fecundity <- cbind(Fecundity,GenIDf)
 
 PopsizeP <- read.csv(file = "/Users/Apple/Desktop/PhD/Code/Data Analysis_Project1/Apr18/Master Data Sheet P_Adult_Li Wang_Apr18.csv", header = T)
-#GenID <- c(rep(1,160),rep(2,160), rep(3,160), rep(4,160), rep(5,160), rep(6,160), rep(7,160),rep(8,160),rep(11,160),rep(12,160),rep(13,160),rep(14,160),rep(15,160))
+GenID <- c(rep(1,160),rep(2,160), rep(3,160), rep(4,160), rep(5,160), rep(6,160), rep(7,160),rep(8,160),rep(11,160),rep(12,160),rep(13,160),rep(14,160),rep(15,160),rep(16,160),rep(17,160),rep(18,160))
 PopsizeP <- cbind(PopsizeP,GenID)
 
 Popsize$Habundance <- Popsize$Male.size +Popsize$Female.size
 PopsizeP$Pabundance <- PopsizeP$Male.size + PopsizeP$Female.size
 
 Fecundity$totavalar <- Fecundity$Larvae + Fecundity$Pupae
-totavalar <-c(rep(0,160),unlist(Fecundity$totavalar))
+totavalar <- unlist(Fecundity$totavalar[(1:1120)])
+totavalar <- c(rep(0,160),totavalar,rep(0,160),unlist(Fecundity$totavalar[1601:2720]))
+
 PopsizeP$totavalar <- totavalar
-PopsizeP$totavalar[1281:1440] <- 0
+
 PopsizeP$parasitism <- (PopsizeP$Male.size + PopsizeP$Female.size)/PopsizeP$totavalar
 PopsizeP$parasitism[!is.finite(PopsizeP$parasitism)] <- 0
 
